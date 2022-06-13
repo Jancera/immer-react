@@ -1,6 +1,7 @@
-import { useCallback, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useCallback } from "react";
 
-import produce from "immer";
+import { useImmer } from "use-immer";
 
 import Todo from "../../components/Todo";
 
@@ -11,7 +12,7 @@ export interface ITodo {
 }
 
 const Home = () => {
-  const [todos, setTodos] = useState<ITodo[]>([
+  const [todos, setTodos] = useImmer<ITodo[]>([
     {
       id: "React",
       title: "Learn React",
@@ -40,14 +41,12 @@ const Home = () => {
    */
 
   const handleToggle = useCallback((id: string) => {
-    setTodos(
-      produce((draft) => {
-        const todo = draft.find((todo) => todo.id === id);
-        if (todo) {
-          todo.done = !todo.done;
-        }
-      }),
-    );
+    setTodos((draft) => {
+      const todo = draft.find((todo) => todo.id === id);
+      if (todo) {
+        todo.done = !todo.done;
+      }
+    });
   }, []);
 
   const handleAdd = useCallback(() => {
@@ -61,15 +60,13 @@ const Home = () => {
       return list;
     }); */
 
-    setTodos(
-      produce((draft) => {
-        draft.push({
-          id: "todo_" + Math.random(),
-          title: "A new todo",
-          done: false,
-        });
-      }),
-    );
+    setTodos((draft) => {
+      draft.push({
+        id: "todo_" + Math.random(),
+        title: "A new todo",
+        done: false,
+      });
+    });
   }, []);
 
   return (
