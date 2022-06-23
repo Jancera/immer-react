@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useReducer } from "react";
+import { useCallback } from "react";
+import { useImmerReducer } from "use-immer";
 
 import Todo from "../../components/Todo";
 import { addTodoAction, toggleTodoAction } from "./actions";
@@ -25,7 +26,7 @@ const initialState = [
 ];
 
 const Home = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useImmerReducer(reducer, initialState);
 
   const unfinishedTodoCount = state.filter(
     (todo) => todo.done === false,

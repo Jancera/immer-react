@@ -1,11 +1,9 @@
-import { Reducer } from "react";
-
-import produce from "immer";
+import { Reducer } from "use-immer";
 
 import { ITodo } from ".";
 import { ActionTypes, IAction } from "./actions";
 
-export const reducer: Reducer<ITodo[], IAction> = produce((draft, action) => {
+export const reducer: Reducer<ITodo[], IAction> = (draft, action) => {
   switch (action.type) {
     case ActionTypes.ADD: {
       draft.push(action.payload);
@@ -21,7 +19,7 @@ export const reducer: Reducer<ITodo[], IAction> = produce((draft, action) => {
     default:
       break;
   }
-});
+};
 
 /* export const reducer: Reducer<ITodo[], IAction> = (state, action) => {
   switch (action.type) {
